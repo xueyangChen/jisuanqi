@@ -8,14 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class JiSunQi extends Activity{
+public class JiSuanQi extends Activity{
 	//定义一些变量
 	//0~9十个按钮
 	private Button[] btn = new Button[10];	
-	private EditText input;		//显示器，用于显示输出结果
-	private TextView mem;		//显示器下方的记忆器，用于记录上一次计算结果
+	public static EditText input;		//显示器，用于显示输出结果
+	public static TextView mem;		//显示器下方的记忆器，用于记录上一次计算结果
 	private TextView _drg;		//三角计算时标志显示：角度还是弧度
-	private TextView tip;		//小提示，用于加强人机交互的弱检测、提示
+	public static TextView tip;		//小提示，用于加强人机交互的弱检测、提示
 	private Button
 		divide,mul,sub,add,equal,		//÷，×，－，＋，＝
 		sin,cos,tan,log,ln,				//函数
@@ -23,11 +23,11 @@ public class JiSunQi extends Activity{
 		left,right,dot,exit,drg,		//（，），.，退出,角度弧度控制键
 		mc,c;							//mem清屏键，input清屏键
 	
-	public String str_old;		//保存原来的算式样子，为了输出时好看，因计算时算式样子被改变
+	public static String str_old;		//保存原来的算式样子，为了输出时好看，因计算时算式样子被改变
 	public String str_new;		//变换样子后的式子
 	public boolean vbegin = true;	//输入控制，true为重新输入，false为接着输入
-	public boolean drg_flag = true;		//控制DRG按键，true为角度，false为弧度
-	public double pi = 4*Math.atan(1);	//∏值：3.14
+	public static boolean drg_flag = true;		//控制DRG按键，true为角度，false为弧度
+	public static double pi = 4*Math.atan(1);	//∏值：3.14
 	public boolean tip_lock = true;		//true表示正确，可以正确输入；false表示有误，输入被锁定
 	public boolean equals_flag = true;	//判断是否是按=之后的输入，true表示输入在=之前，false反之
 	
@@ -212,6 +212,7 @@ public class JiSunQi extends Activity{
 				input.setText("0");	//将显示器内容设置为0
 				vbegin = true;
 				tip_i = 0;
+				tip_lock = true;
 				tip.setText("欢迎使用！");
 			}else if(command.compareTo("C") == 0){
 				//如果输入的是清除键
@@ -242,9 +243,11 @@ public class JiSunQi extends Activity{
 				str = str.replace("n!", "!");
 				//重新输入标志设置为true
 				vbegin = true;
-				str_new = str.replace("-","-1x");
+				str_new = str.replaceAll("-","-1x");
 				new calc().process(str_new);
 			}
+			//表明可以继续输入
+			tip_lock = true;
 		}
 		
 	};
