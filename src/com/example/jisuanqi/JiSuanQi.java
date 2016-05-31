@@ -235,15 +235,15 @@ public class JiSuanQi extends Activity{
 				equals_flag = false;	//表明输入=之后
 				str_old = str;	//保存原来算式的样子
 				//替换算式中的运算符，便于计算
-				str = str.replace("sin", "s");
-				str = str.replace("cos", "c");
-				str = str.replace("tan", "t");
-				str = str.replace("log", "g");
-				str = str.replace("ln", "l");
-				str = str.replace("n!", "!");
+				str = str.replaceAll("sin", "s");
+				str = str.replaceAll("cos", "c");
+				str = str.replaceAll("tan", "t");
+				str = str.replaceAll("log", "g");
+				str = str.replaceAll("ln", "l");
+				str = str.replaceAll("n!", "!");
 				//重新输入标志设置为true
 				vbegin = true;
-				str_new = str.replaceAll("-","-1x");
+				str_new = str.replaceAll("-","-1×");
 				new calc().process(str_new);
 			}
 			//表明可以继续输入
